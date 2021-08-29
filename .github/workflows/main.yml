@@ -34,6 +34,7 @@ jobs:
           key: test-${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties', 'gradle/**', 'buildSrc/src/main/**') }}
           restore-keys: |
             test-${{ runner.os }}-gradle-
+
       - name: Build with Gradle
         run: ./gradlew build
 
@@ -74,15 +75,15 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build -x check
 
-      - name: Build with Gradle
-        run: native-image --no-fallback -jar jrclone-cli/build/libs/jrclone-cli-all.jar -H:Name=jrclone -H:Class=com.github.alexeylapin.jrclone.JRClone -H:+ReportExceptionStackTraces
+      - name: Build Native Image
+        run: native-image --no-fallback -jar jrclone-cli/build/libs/jrclone-cli-all.jar -H:Name=jrclone-cli-app -H:Class=com.github.alexeylapin.jrclone.JRClone -H:+ReportExceptionStackTraces
 
       - name: Upload service-native-linux-8
         uses: actions/upload-artifact@v2
         with:
           name: service-native-linux-8
           path: |
-            service/build/native-image/realworld-backend-micronaut-*
+            **/jrclone-cli-app
 
   graal-11-windows:
     runs-on: windows-latest
@@ -117,6 +118,13 @@ jobs:
       - name: Build Native Image
         shell: powershell
         run: native-image --no-fallback -jar jrclone-cli/build/libs/jrclone-cli-all.jar -H:Name=jrclone -H:Class=com.github.alexeylapin.jrclone.JRClone -H:+ReportExceptionStackTraces
+
+      - name: Upload service-native-linux-8
+        uses: actions/upload-artifact@v2
+        with:
+          name: service-native-windows-8
+          path: |
+            **/jrclone.exe
 
 #  coverage:
 #    runs-on: ubuntu-latest

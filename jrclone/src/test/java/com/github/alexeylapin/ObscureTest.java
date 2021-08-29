@@ -1,5 +1,6 @@
 package com.github.alexeylapin;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import javax.crypto.Cipher;
@@ -16,6 +17,7 @@ public class ObscureTest {
             0xf4, 0xde, 0x16, 0x2b, 0x8b, 0x95, 0xf6, 0x38,
     };
 
+    @Disabled
     @Test
     void name() throws Exception {
         String obscured = "";

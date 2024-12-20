@@ -17,8 +17,12 @@ dependencies {
     implementation("commons-codec:commons-codec:1.15")
     implementation("org.purejava:tweetnacl-java:1.1.2")
 
+    implementation(platform("io.micrometer:micrometer-bom:latest.release"))
+    implementation("io.micrometer:micrometer-observation")
+
     testImplementation("org.assertj:assertj-core:3.20.2")
     testImplementation("org.junit.jupiter:junit-jupiter:5.7.2")
+    testImplementation("com.google.jimfs:jimfs:1.3.0")
 }
 
 configure<JavaPluginExtension> {
